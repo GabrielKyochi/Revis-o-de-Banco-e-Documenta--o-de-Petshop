@@ -1,7 +1,7 @@
 CREATE DATABASE petshop;
 USE petshop;
 
-CREATE TABLE cliente(
+CREATE TABLE clientes(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     cpf INT UNIQUE NOT NULL,
@@ -9,16 +9,16 @@ CREATE TABLE cliente(
     email VARCHAR(120) NOT NULL
 );
 
-CREATE TABLE pet(
+CREATE TABLE pets(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cliente_id INT NOT NULL,
+    clientes_id INT NOT NULL,
     nome VARCHAR(100) NOT NULL,
     especie ENUM('Felinos', 'Caninos', 'Anfíbios', 'Aves', 'Peixes'),
     porte ENUM('Grande', 'Médio', 'Pequeno'),
-    CONSTRAINT fk_cliente_id FOREIGN KEY (cliente_id) REFERENCES cliente(id)
+    CONSTRAINT fk_clientes_id FOREIGN KEY (clientes_id) REFERENCES clientes(id)
 );
 
-CREATE TABLE servico(
+CREATE TABLE servicos(
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     preco DECIMAL NOT NULL,
@@ -29,11 +29,11 @@ CREATE TABLE servico(
 
 CREATE TABLE agendamento(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    pet_id INT NOT NULL,
-    servico_id INT NOT NULL,
+    pets_id INT NOT NULL,
+    servicos_id INT NOT NULL,
     data_hora DATETIME NOT NULL,
     status ENUM('Iniciado', 'Em progresso', 'Finalizado'),
     observacoes VARCHAR(100) NULL,
-    CONSTRAINT fk_pet_id FOREIGN KEY (pet_id) REFERENCES pet(id),
-    CONSTRAINT fk_servico_id FOREIGN KEY (servico_id) REFERENCES servico(id)
+    CONSTRAINT fk_pets_id FOREIGN KEY (pets_id) REFERENCES pets(id),
+    CONSTRAINT fk_servicos_id FOREIGN KEY (servicos_id) REFERENCES servicos(id)
 );
